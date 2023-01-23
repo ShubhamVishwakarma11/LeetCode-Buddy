@@ -8,9 +8,9 @@ const UserSchema = new mongoose.Schema({
     friends: [{
         type: String
     }], 
-    collegeId: {
+    instituteId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'College'
+        ref: 'Institute'
     }
 })
 

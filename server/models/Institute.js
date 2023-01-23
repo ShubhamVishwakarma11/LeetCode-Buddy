@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const CollegeSchema = new mongoose.Schema({
+const InstituteSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -9,9 +9,9 @@ const CollegeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    studentsCount: {
+    student_count: {
         type: Number
     }
 })
 
-module.exports = new mongoose.model("College", CollegeSchema)
+module.exports = new mongoose.model("Institute", InstituteSchema)
