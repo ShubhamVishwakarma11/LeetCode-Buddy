@@ -11,35 +11,9 @@ const {
 const User = require('../models/User')
 const Institute = require('../models/Institute')
 
+const UserType = require('./type/UserType')
+const InstituteType = require('./type/InstituteType')
 
-// Institute Type 
-
-const InstituteType = new GraphQLObjectType({
-    name: "Institute",
-    fields: () => ({
-        id: {type: GraphQLID},
-        name: {type: GraphQLString},
-        city: {type: GraphQLString},
-        student_count: {type: GraphQLInt}
-    })
-})
-
-// User Type
-
-const UserType = new GraphQLObjectType({
-    name: "User",
-    fields: () => ({
-        id: {type: GraphQLID},
-        username: {type: GraphQLString},
-        friends: {type: new GraphQLList(GraphQLString)},
-        institute: {
-            type: InstituteType,
-            resolve(parent,args) {
-                return Institute.findById(parent.instituteId)
-            }
-        }
-    })
-})
 
 // Queries
 
@@ -68,8 +42,89 @@ const RootQuery = new GraphQLObjectType({
         user: {
             type: UserType,
             args: {id: {type: GraphQLID}},
-            resolve(parent,args) {
-                return User.findById(args.id)
+            resolve : async (parent,args) => {
+
+                const dbUser = await User.findById(args.id)
+
+                const res = await fetch('https://leetcode.com/graphql', {
+                method: 'POST',
+                body: JSON.stringify({
+                    query: `query getUserProfile($username: String!) {
+                        allQuestionsCount {
+                            difficulty
+                            count
+                        }
+                        matchedUser(username: $username) {
+                            username
+                            githubUrl
+                            contributions {
+                                points
+                                questionCount
+                                testcaseCount
+                            }
+                            profile {
+                                realName
+                                websites
+                                countryName
+                                skillTags
+                                company
+                                school
+                                starRating
+                                aboutMe
+                                userAvatar
+                                reputation
+                                ranking
+                            }
+                            submitStats {
+                                acSubmissionNum {
+                                    difficulty
+                                    count
+                                    submissions
+                                }
+                                totalSubmissionNum {
+                                    difficulty
+                                    count
+                                    submissions
+                                }
+                            }
+                            badges {
+                                id
+                                displayName
+                                icon
+                                creationDate
+                            }
+                        }
+                    }`,
+                    variables: {
+                        username: dbUser.username
+                    }
+                }),
+                headers: {
+                    'content-type': 'application/json'
+                }
+                })
+                
+                const data = await res.json()
+                
+
+                console.log(data.data)
+                console.log(data.error)
+       
+
+                const apiUser = data.data
+
+                const user = {
+                    id: dbUser.id,
+                    username: dbUser.username,
+                    instituteId: dbUser.instituteId ,
+                    friends: dbUser.friends,
+                    githubUrl: apiUser.matchedUser.githubUrl,
+                    allQuestionsCount: apiUser.allQuestionsCount,
+                    acSubmissionNum: apiUser.matchedUser.submitStats.acSubmissionNum,
+                    profile: apiUser.matchedUser.profile
+                }
+
+                return user
             }
         }
     }
