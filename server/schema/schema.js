@@ -17,17 +17,19 @@ const UserType = require('./type/UserType')
 const InstituteType = require('./type/InstituteType')
 const OtherUserType = require('./type/OtherUserType')
 
-//Query Import
+// Query Import
 const InstitutesQuery = require('./query/InstitutesQuery')
 const InstituteQuery = require('./query/InstituteQuery')
 const UsersQuery = require('./query/UsersQuery')
 const UserQuery = require('./query/UserQuery')
 const FriendsQuery = require('./query/FriendsQuery')
 const BatchmatesQuery = require('./query/BatchmatesQuery')
-const AddUserMutation = require('./mutations/AddUserMutation')
-const AddFriendMutation = require('./mutations/AddFriendMutation')
-const AddInstituteMutation = require('./mutations/AddInstituteMutation')
-const SetInstituteMutation = require('./mutations/SetInstituteMutation')
+
+// Mutation Import
+const AddUserMutation = require('./mutation/AddUserMutation')
+const AddFriendMutation = require('./mutation/AddFriendMutation')
+const AddInstituteMutation = require('./mutation/AddInstituteMutation')
+const SetInstituteMutation = require('./mutation/SetInstituteMutation')
 
 // Queries
 const RootQuery = new GraphQLObjectType({
@@ -43,7 +45,6 @@ const RootQuery = new GraphQLObjectType({
 })
 
 // Mutations
-
 const mutation = new GraphQLObjectType({
     name: "Mutation",
     fields: {
