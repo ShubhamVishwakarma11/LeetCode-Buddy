@@ -9,6 +9,9 @@ const InstituteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    students: [{
+        type: String
+    }],
     student_count: {
         type: Number
     }
