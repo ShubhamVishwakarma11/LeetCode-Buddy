@@ -27,6 +27,7 @@ const BatchmatesQuery = require('./query/BatchmatesQuery')
 const AddUserMutation = require('./mutations/AddUserMutation')
 const AddFriendMutation = require('./mutations/AddFriendMutation')
 const AddInstituteMutation = require('./mutations/AddInstituteMutation')
+const SetInstituteMutation = require('./mutations/SetInstituteMutation')
 
 // Queries
 const RootQuery = new GraphQLObjectType({
@@ -48,7 +49,8 @@ const mutation = new GraphQLObjectType({
     fields: {
         addUser: AddUserMutation,
         addFriend: AddFriendMutation,
-        addInstitute: AddInstituteMutation
+        addInstitute: AddInstituteMutation,
+        setInstitute: SetInstituteMutation
     }
 })
 
