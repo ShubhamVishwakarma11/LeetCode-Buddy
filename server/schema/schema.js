@@ -24,6 +24,7 @@ const UsersQuery = require('./query/UsersQuery')
 const UserQuery = require('./query/UserQuery')
 const FriendsQuery = require('./query/FriendsQuery')
 const BatchmatesQuery = require('./query/BatchmatesQuery')
+const AddUserMutation = require('./mutations/AddUserMutation')
 
 // Queries
 const RootQuery = new GraphQLObjectType({
@@ -41,10 +42,14 @@ const RootQuery = new GraphQLObjectType({
 // Mutations
 
 const mutation = new GraphQLObjectType({
-    name: "Mutation"
+    name: "Mutation",
+    fields: {
+        addUser: AddUserMutation
+    }
 })
 
 
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation
 })
