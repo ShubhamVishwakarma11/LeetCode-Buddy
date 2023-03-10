@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import Profile from "@/components/Home/Profile"
+
 
 export default function Home() {
+
   return (
-    <>
-    <div className='bg-red-200'>Hello World okay</div>
-    <Link href="/user"> user</Link>
-    </>
+    <div className="flex flex-col justify-center items-center p-4 w-full h-full bg-lc-gray-2 text-white">
+      <Profile/>
+    </div>
   )
 }
