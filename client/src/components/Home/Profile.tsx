@@ -1,17 +1,54 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Image from 'next/image'
 import ProblemProgress from './ProblemProgress'
 
 const Profile = () => {
+
+    const [url, setUrl] = useState<string>('');
+    const [res, setRes] = useState<any>();
+    /**
+     * Get current URL
+     */
+    useEffect(() => {
+        const queryInfo = {active: true, lastFocusedWindow: true};
+
+        // const user = JSON.parse(localStorage.getItem('user')!);
+        // if (user) {
+        //     setRes(user);
+        // }
+
+        chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
+            const url = tabs[0].url!;
+            setUrl(url);
+        });
+
+
+        chrome.runtime.onMessage.addListener(
+            function(request, sender, sendResponse) {
+              console.log(sender.tab ?
+                          "from a content script:" + sender.tab.url :
+                          "from the extension");
+                setRes(request.greeting);
+                sendResponse(`found username ${request.greeting}`);
+            }
+          );
+
+    }, []);
+
+    
+
+
   return (
     <div className="flex flex-col justify-center items-center gap-4">
-        <div className='flex flex-col justify-center items-center w-full p-4 bg-lc-gray-1 rounded-lg'>
+        <div className='flex flex-col justify-center items-center w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
             <div className="flex justify-center gap-4">
                 <Image src='/images/avatar.png' width={100} height={100} alt="avatar"/>
                 <div className="">
-                    <h1 className='text-2xl'>Shubham Vishwakarma</h1>
-                    <p className='text-md text-lc-text-dark'>pikachu_65</p>
-                    <p className='text-md text-lc-text-dark'>Rank: 696969</p>
+                    <h1 className='text-xl'>Shubham Vishwakarma</h1>
+                    <p className='text-md text-lc-text-dark'> pikachu_65 </p>
+                    <p className='text-md text-lc-text-dark'>Rank: 696969 </p>
+                    <p>{url}</p>
+                    <p>{res}</p>
                 </div>
             </div>
         </div>
@@ -38,7 +75,7 @@ const Profile = () => {
                 </div>
 
 
-                <div className="flex flex-col justify-center gap-4">
+                <div className="flex flex-col justify-center gap-4 pb-4">
                     <ProblemProgress difficulty='Easy' color="green"/>
                     <ProblemProgress difficulty='Medium' color="orange"/>
                     <ProblemProgress difficulty='Hard' color="red"/>
