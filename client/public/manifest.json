@@ -11,5 +11,8 @@
             "matches": ["*://*.leetcode.com/*"],
             "js": ["content.js"]
         }
+    ],
+    "permissions": [
+        "storage", "tabs"
     ]
 }

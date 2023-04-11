@@ -5,7 +5,7 @@ import ProblemProgress from './ProblemProgress'
 const Profile = () => {
 
     const [url, setUrl] = useState<string>('');
-    const [res, setRes] = useState<any>();
+    const [username, setUsername] = useState<any>();
     /**
      * Get current URL
      */
@@ -17,16 +17,23 @@ const Profile = () => {
             setUrl(url);
         });
 
+        chrome.storage.local.get(["user"]).then((result) => {
+            setUsername(result.user);
+        });
+
 
         chrome.runtime.onMessage.addListener(
             function(request, sender, sendResponse) {
               console.log(sender.tab ?
                           "from a content script:" + sender.tab.url :
                           "from the extension");
-                setRes(request.greeting);
+                setUsername(request.greeting);
+                chrome.storage.local.set({ 'user': request.greeting }).then(() => {
+                    console.log("Value is set to " + request.greeting);
+                });
                 sendResponse(`found username ${request.greeting}`);
             }
-          );
+        );
 
     }, []);
 
@@ -43,7 +50,7 @@ const Profile = () => {
                     <p className='text-md text-lc-text-dark'> pikachu_65 </p>
                     <p className='text-md text-lc-text-dark'>Rank: 696969 </p>
                     <p>{url}</p>
-                    <p>{res}</p>
+                    <p>username: {username}</p>
                 </div>
             </div>
         </div>
