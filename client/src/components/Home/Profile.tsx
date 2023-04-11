@@ -12,11 +12,6 @@ const Profile = () => {
     useEffect(() => {
         const queryInfo = {active: true, lastFocusedWindow: true};
 
-        // const user = JSON.parse(localStorage.getItem('user')!);
-        // if (user) {
-        //     setRes(user);
-        // }
-
         chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
             const url = tabs[0].url!;
             setUrl(url);
