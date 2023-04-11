@@ -8,8 +8,11 @@
     },
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
+            "matches": ["*://*.leetcode.com/*"],
             "js": ["content.js"]
         }
+    ],
+    "permissions": [
+        "storage", "tabs"
     ]
 }
