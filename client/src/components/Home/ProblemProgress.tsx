@@ -11,7 +11,7 @@ const ProblemProgress = ({color, difficulty}: Props) => {
     <div className='flex flex-col w-[12rem] gap-1'>
         <div className="flex w-full items-end text-xs justify-between">
           <div className="w-[53px] text-[0.8rem] text-lc-text-dark">
-            {difficulty}
+            {difficulty} 
           </div>
           <div className="flex items-center">
             <span className="mr-[5px] text-base font-medium leading-[20px] text-lc-text-light">

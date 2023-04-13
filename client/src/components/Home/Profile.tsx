@@ -1,25 +1,23 @@
 import React, {useState, useEffect} from 'react'
 import Image from 'next/image'
 import ProblemProgress from './ProblemProgress'
+import { useUserContext } from '@/hooks/useUserContext'
+import { useUrlContext } from '@/hooks/useUrlContext'
 
 const Profile = () => {
 
-    const [url, setUrl] = useState<string>('');
-    const [username, setUsername] = useState<any>();
+    const {url} = useUrlContext();
+    const {user, dispatch} = useUserContext();
     /**
      * Get current URL
      */
     useEffect(() => {
-        const queryInfo = {active: true, lastFocusedWindow: true};
+        // const queryInfo = {active: true, lastFocusedWindow: true};
 
-        chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
-            const url = tabs[0].url!;
-            setUrl(url);
-        });
-
-        chrome.storage.local.get(["user"]).then((result) => {
-            setUsername(result.user);
-        });
+        // chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
+        //     const url = tabs[0].url!;
+        //     setUrl(url);
+        // });
 
 
         chrome.runtime.onMessage.addListener(
@@ -27,7 +25,7 @@ const Profile = () => {
               console.log(sender.tab ?
                           "from a content script:" + sender.tab.url :
                           "from the extension");
-                setUsername(request.greeting);
+                dispatch({type:"LOGIN", payload: request.greeting});
                 chrome.storage.local.set({ 'user': request.greeting }).then(() => {
                     console.log("Value is set to " + request.greeting);
                 });
@@ -38,8 +36,6 @@ const Profile = () => {
     }, []);
 
     
-
-
   return (
     <div className="flex flex-col justify-center items-center gap-4">
         <div className='flex flex-col justify-center items-center w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
@@ -50,7 +46,7 @@ const Profile = () => {
                     <p className='text-md text-lc-text-dark'> pikachu_65 </p>
                     <p className='text-md text-lc-text-dark'>Rank: 696969 </p>
                     <p>{url}</p>
-                    <p>username: {username}</p>
+                    <p>username: {user}</p>
                 </div>
             </div>
         </div>
