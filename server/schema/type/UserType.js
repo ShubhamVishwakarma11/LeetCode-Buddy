@@ -5,7 +5,9 @@ const {
     GraphQLInt, 
     GraphQLList, 
     GraphQLSchema,
-    GraphQLInputObjectType
+    GraphQLInputObjectType,
+    GraphQLScalarType,
+    GraphQLFloat
 } = require('graphql') 
 const Institute = require('../../models/Institute')
 const InstituteType = require('./InstituteType')
@@ -49,9 +51,26 @@ const UserType = new GraphQLObjectType({
                 starRating: {type: GraphQLInt},
                 aboutMe: {type: GraphQLString},
                 userAvatar: {type: GraphQLString},               
-                                
+                ranking: {type: GraphQLInt}
             })
         })},
+        userContestRanking: {type: new GraphQLObjectType({
+            name: "userContestRanking",
+            fields : () => ({
+                attendedContestsCount: {type: GraphQLInt},
+                rating: {type: GraphQLFloat},
+                topPercentage: {type: GraphQLFloat},
+            })
+        })},
+        recentAcSubmissionList: {type: new GraphQLList( new GraphQLObjectType({
+            name: "recentAcSubmissionList",
+            fields : () => ({
+                id: {type: GraphQLString},
+                title: {type: GraphQLString},
+                titleSlug: {type: GraphQLString},
+                timestamp: {type: GraphQLString},
+            })
+        }))},
     })
 })
 

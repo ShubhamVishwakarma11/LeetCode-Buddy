@@ -10,7 +10,10 @@ const CommonLayout = ({children}: Props) => {
   return (
     <div>
         <Appbar></Appbar>
+        <div className="bg-lc-gray-2 py-[5rem] ">
           {children}
+        </div>
+          
         <Navbar></Navbar>
     </div>
   )

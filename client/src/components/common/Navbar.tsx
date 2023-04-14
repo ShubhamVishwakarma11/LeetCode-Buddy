@@ -6,7 +6,7 @@ import {IoSchool} from 'react-icons/io5'
 
 const Navbar = () => {
   return (
-    <div className='flex items-center justify-around gap-1 bg-lc-gray-2 text-lc-text-dark'>
+    <div className='flex items-center justify-around gap-1 bg-lc-gray-2 text-lc-text-dark w-full fixed bottom-0 z-[500]'>
         <Link className='w-full' href="/"><div className="flex flex-col gap-1 bg-lc-gray-1 items-center justify-center w-full p-2 rounded">
             <CgProfile/>
             <p className='text-sm'>Profile</p> 

@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 body {
   width: 500px;
-  min-height: 600px;
+  max-height: 600px;
 }

@@ -1,24 +1,28 @@
+
 import clsx from 'clsx'
 import React from 'react'
 
 type Props = {
   color: string,
-  difficulty: string
+  difficulty: string,
+  solvedQuestions: number,
+  totalQuestions: number
 }
 
-const ProblemProgress = ({color, difficulty}: Props) => {
+const ProblemProgress = ({color, difficulty, solvedQuestions, totalQuestions}: Props) => {
+
   return (
     <div className='flex flex-col w-[12rem] gap-1'>
         <div className="flex w-full items-end text-xs justify-between">
-          <div className="w-[53px] text-[0.8rem] text-lc-text-dark">
+          <div className="w-[83px] text-[0.8rem] text-lc-text-dark">
             {difficulty} 
           </div>
           <div className="flex items-center">
             <span className="mr-[5px] text-base font-medium leading-[20px] text-lc-text-light">
-              77
+              {solvedQuestions}
             </span>
             <span className="text-xs font-medium text-lc-text-dark">
-              /633
+              /{totalQuestions}
             </span>
           </div>
         </div>
@@ -32,7 +36,7 @@ const ProblemProgress = ({color, difficulty}: Props) => {
         `${color==="green" && "bg-lc-green"}`,
         `${color==="orange" && "bg-lc-orange"}`,
         `${color==="red" && "bg-lc-red"}`,  
-        )} style={{width: "12.1643%"}}></div>
+        )} style={{width: (solvedQuestions/totalQuestions) * 100}}></div>
       </div>
     </div>
   )

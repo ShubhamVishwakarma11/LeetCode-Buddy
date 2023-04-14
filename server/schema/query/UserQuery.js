@@ -1,4 +1,4 @@
-const {GraphQLID} = require('graphql')
+const {GraphQLString} = require('graphql')
 const UserType = require('../type/UserType')
 const User = require('../../models/User')
 
@@ -16,6 +16,7 @@ const query = `query getUserProfile($username: String!) {
             starRating
             aboutMe
             userAvatar
+            ranking
         }
         submitStats {
             acSubmissionNum {
@@ -25,21 +26,32 @@ const query = `query getUserProfile($username: String!) {
             }
         }
     }
+    userContestRanking(username: $username) {
+        attendedContestsCount
+        rating
+        topPercentage
+    }
+    recentAcSubmissionList(username: $username, limit: 11) {
+        id
+        title
+        titleSlug
+        timestamp
+    }
 }`
 
 const UserQuery = {
     type: UserType,
-    args: {id: {type: GraphQLID}},
+    args: {username: {type: GraphQLString}},
     resolve : async (parent,args) => {
 
-        const dbUser = await User.findById(args.id)
+        const dbUser = await User.findOne({username: args.username})
 
         const res = await fetch('https://leetcode.com/graphql', {
         method: 'POST',
         body: JSON.stringify({
             query,
             variables: {
-                username: dbUser.username
+                username: args.username
             }
         }),
         headers: {
@@ -63,7 +75,9 @@ const UserQuery = {
             githubUrl: apiUser.matchedUser.githubUrl,
             allQuestionsCount: apiUser.allQuestionsCount,
             acSubmissionNum: apiUser.matchedUser.submitStats.acSubmissionNum,
-            profile: apiUser.matchedUser.profile
+            profile: apiUser.matchedUser.profile,
+            userContestRanking: apiUser.userContestRanking,
+            recentAcSubmissionList: apiUser.recentAcSubmissionList
         }
 
         return user
