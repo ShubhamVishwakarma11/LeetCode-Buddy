@@ -1,4 +1,4 @@
-const {GraphQLID, GraphQLList} = require('graphql')
+const {GraphQLID, GraphQLList, GraphQLString} = require('graphql')
 const OtherUserType = require('../type/OtherUserType')
 const User = require('../../models/User')
 
@@ -9,12 +9,14 @@ const query = `query getUserProfile($username: String!) {
     }
     matchedUser(username: $username) {
         username
+        githubUrl
         profile {
             realName
             countryName
             starRating
             aboutMe
             userAvatar
+            ranking
         }
         submitStats {
             acSubmissionNum {
@@ -24,14 +26,25 @@ const query = `query getUserProfile($username: String!) {
             }
         }
     }
+    userContestRanking(username: $username) {
+        attendedContestsCount
+        rating
+        topPercentage
+    }
+    recentAcSubmissionList(username: $username, limit: 11) {
+        id
+        title
+        titleSlug
+        timestamp
+    }
 }`
 
 
 const FriendsQuery = {
     type: new GraphQLList(OtherUserType),
-    args: {id: {type: GraphQLID}},
+    args: {username: {type: GraphQLString}},
     resolve: async (parent, args) => {
-        const dbUser = await User.findById(args.id)
+        const dbUser = await User.findOne({username: args.username})
         const friends = dbUser.friends
 
         const friendsData = await friends.map( async friend =>  {
@@ -57,7 +70,9 @@ const FriendsQuery = {
                 githubUrl: apiUser.matchedUser.githubUrl,
                 allQuestionsCount: apiUser.allQuestionsCount,
                 acSubmissionNum: apiUser.matchedUser.submitStats.acSubmissionNum,
-                profile: apiUser.matchedUser.profile
+                profile: apiUser.matchedUser.profile,
+                userContestRanking: apiUser.userContestRanking,
+                recentAcSubmissionList: apiUser.recentAcSubmissionList
             }
             // console.log(user)
             return user

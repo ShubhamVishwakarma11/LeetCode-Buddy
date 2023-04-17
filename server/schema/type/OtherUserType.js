@@ -3,7 +3,8 @@ const {
     GraphQLID,
     GraphQLInt,
     GraphQLString, 
-    GraphQLList
+    GraphQLList,
+    GraphQLFloat
 } = require('graphql') 
 
 
@@ -16,14 +17,14 @@ const OtherUserType = new GraphQLObjectType({
         username: {type: GraphQLString},
         githubUrl: {type: GraphQLString},
         allQuestionsCount: {type: new GraphQLList( new GraphQLObjectType({
-            name: "otherUserAllQuestionsCount",
+            name: "otherUserallQuestionsCount",
             fields : () => ({
                 difficulty: {type: GraphQLString},
                 count: {type: GraphQLInt}
             })
         }))},
         acSubmissionNum: {type: new GraphQLList( new GraphQLObjectType({
-            name: "otherUserAcSubmissionNum",
+            name: "otherUseracSubmissionNum",
             fields : () => ({
                 difficulty: {type: GraphQLString},
                 count: {type: GraphQLInt},
@@ -31,16 +32,33 @@ const OtherUserType = new GraphQLObjectType({
             })
         }))},
         profile: {type: new GraphQLObjectType({
-            name: "otherUserProfile",
+            name: "otherUserprofile",
             fields : () => ({
                 realName: {type: GraphQLString},
                 countryName: {type: GraphQLString},
                 starRating: {type: GraphQLInt},
                 aboutMe: {type: GraphQLString},
-                userAvatar: {type: GraphQLString},              
-                                
+                userAvatar: {type: GraphQLString},               
+                ranking: {type: GraphQLInt}
             })
         })},
+        userContestRanking: {type: new GraphQLObjectType({
+            name: "otherUseruserContestRanking",
+            fields : () => ({
+                attendedContestsCount: {type: GraphQLInt},
+                rating: {type: GraphQLFloat},
+                topPercentage: {type: GraphQLFloat},
+            })
+        })},
+        recentAcSubmissionList: {type: new GraphQLList( new GraphQLObjectType({
+            name: "otherUserrecentAcSubmissionList",
+            fields : () => ({
+                id: {type: GraphQLString},
+                title: {type: GraphQLString},
+                titleSlug: {type: GraphQLString},
+                timestamp: {type: GraphQLString},
+            })
+        }))},
     })
 })
 

@@ -3,10 +3,12 @@ import Image from 'next/image'
 import ProblemProgress from './ProblemProgress'
 import { useUserContext } from '@/hooks/useUserContext'
 import { useUrlContext } from '@/hooks/useUrlContext'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GET_USER_DETAIL } from '@/query/UserQuery'
 import clsx from 'clsx'
 import { calcDate } from '@/utility/calcDate'
+import { ADD_USER } from '@/mutations/userMutation'
+import Onboarding from './Onboarding'
 
 const Profile = () => { 
     const {url} = useUrlContext();
@@ -33,13 +35,35 @@ const Profile = () => {
 
     }, []);
 
+    const [addUser] = useMutation(ADD_USER, {
+        variables: {username: user},
+        refetchQueries: [{ query: GET_USER_DETAIL, variables: {username: user}}]
+    })
+
+    
+
     if (!user) return <p>Please Login to your LeetCode Account</p>
 
-    if (loading) return <p>Loading ...</p>
-    if (error) return <p>{error.message}</p>
+    else if (loading) return <p>Loading ...</p>
+
+    else if (error && error.message===`Cannot read properties of null (reading 'id')`) {
+        // const handleClick = () => {
+        //     addUser();
+        // }
+        // return (
+        //     <div>
+        //         <p>Welcome to LeetCode Buddy.</p>
+        //         <button onClick={handleClick} className='p-2 bg-lc-gray-3 m-2'>Get Started</button>
+        //     </div>
+        // )
+        return <Onboarding/>
+    }
+
+    else if (error) return <p>{error.message}</p>
+
 
     return (
-        !loading && !error && 
+        !loading && !error && data.user &&
         <div className="flex flex-col justify-center items-center gap-4 min-w-[25rem]">
             <div className='flex flex-col justify-center items-start w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
                 <div className="flex justify-center gap-4">
