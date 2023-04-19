@@ -1,9 +1,10 @@
+import InstitutePage from '@/components/institute/InstitutePage'
 import React from 'react'
 
-const institute = () => {
+const Institute = () => {
   return (
-    <div>institute</div>
+      <InstitutePage/>
   )
 }
 
-export default institute
+export default Institute

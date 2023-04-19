@@ -1,16 +1,17 @@
-const { GraphQLNonNull, GraphQLID } = require("graphql");
+const { GraphQLNonNull, GraphQLID, GraphQLString } = require("graphql");
 const UserType = require("../type/UserType");
 const User = require('../../models/User')
 
 const SetInstituteMutation = {
     type: UserType,
     args: {
-        userId: {type: new GraphQLNonNull(GraphQLID)},
+        username: {type: new GraphQLNonNull(GraphQLString)},
         instituteId: {type: new GraphQLNonNull(GraphQLID)}
     },
     resolve: async (parent, args) => {
+        const findUser = await User.findOne({username: args.username});
         const user = await User.findByIdAndUpdate(
-            args.userId,
+            findUser._id,
             {
                 $set: {
                     instituteId: args.instituteId
