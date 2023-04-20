@@ -1,4 +1,4 @@
-const {GraphQLID, GraphQLList} = require('graphql')
+const {GraphQLID, GraphQLList, GraphQLString} = require('graphql')
 const OtherUserType = require('../type/OtherUserType')
 const User = require('../../models/User')
 const Institute = require('../../models/Institute')
@@ -30,9 +30,9 @@ const query = `query getUserProfile($username: String!) {
 
 const BatchmatesQuery = {
     type: new GraphQLList(OtherUserType),
-    args: {id: {type: GraphQLID}},
+    args: {username: {type: GraphQLString}},
     resolve: async (parent,args) => {
-        const dbUser = await User.findById(args.id)
+        const dbUser = await User.findOne({username: args.username})
         const instituteId = dbUser.instituteId
 
         const institute = await Institute.findById(instituteId)

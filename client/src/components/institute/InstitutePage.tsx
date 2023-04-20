@@ -4,6 +4,8 @@ import {MdOutlineSchool} from 'react-icons/md'
 import InstituteForm from './InstituteForm';
 import { useQuery } from '@apollo/client';
 import { GET_USER_DETAIL } from '@/query/UserQuery';
+import InstituteDetail from './InstituteDetail';
+import BatchmatesList from './BatchmatesList';
 
 
 const InstitutePage = () => {
@@ -28,11 +30,12 @@ const InstitutePage = () => {
             </div>
         )
     }
-  return (
+  return (!error && !loading && 
     <div className="flex flex-col justify-center items-center px-4 py-2 w-full h-full bg-lc-gray-2 text-white">
-      <div className='flex flex-col justify-center items-start w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
-            <p className='text-lc-text-light'> institute</p>
+      <div className='flex flex-col justify-center items-center w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
+            <InstituteDetail />
         </div>
+            <BatchmatesList />
     </div>
   )
 }

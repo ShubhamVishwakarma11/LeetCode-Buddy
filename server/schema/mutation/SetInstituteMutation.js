@@ -1,6 +1,7 @@
 const { GraphQLNonNull, GraphQLID, GraphQLString } = require("graphql");
 const UserType = require("../type/UserType");
-const User = require('../../models/User')
+const User = require('../../models/User');
+const Institute = require("../../models/Institute");
 
 const SetInstituteMutation = {
     type: UserType,
@@ -19,6 +20,16 @@ const SetInstituteMutation = {
             },
             {new: true}    
         )
+        const institute = await Institute.findByIdAndUpdate(
+            args.instituteId,
+            {
+                $push: {
+                    students: args.username
+                }
+            },
+            {new: true}
+        )
+        
 
         return user
     }

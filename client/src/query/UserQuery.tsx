@@ -7,6 +7,10 @@ export const GET_USER_DETAIL = gql`
             username,
             institute {
               id
+              name
+              city
+              student_count
+              students
             }
             friends
             githubUrl

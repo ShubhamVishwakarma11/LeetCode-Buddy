@@ -3,8 +3,11 @@ import React, { useState } from 'react'
 import { MdOutlineSchool } from 'react-icons/md'
 import {SlLocationPin} from 'react-icons/sl'
 import {FaUserGraduate} from 'react-icons/fa'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GET_INSTITUTES_LIST } from '@/query/InstituteQuery'
+import { SET_INSTITUTE } from '@/mutations/instituteMutation'
+import { GET_USER_DETAIL } from '@/query/UserQuery'
+import { useUserContext } from '@/hooks/useUserContext'
 
 
 type DataType = {
@@ -14,11 +17,18 @@ type DataType = {
 }
 
 const InstituteForm = () => {
+    const {user} = useUserContext();
+
     const [value, setValue] = useState('');
     const [instituteId, setInstituteId] = useState(0);
     const [notFound, setNotFound] = useState(false);
 
     const {loading, error, data} = useQuery(GET_INSTITUTES_LIST);
+    
+    const [setInstitute] = useMutation(SET_INSTITUTE, {
+        variables: {username: user, instituteId: instituteId},
+        refetchQueries: [{query: GET_USER_DETAIL, variables: {username: user}}]
+    })
 
     const handleClick = (institute: DataType) => {
         setValue(institute.name);
@@ -32,6 +42,7 @@ const InstituteForm = () => {
         }
         else {
             console.log('added ', instituteId, " ", value);
+            setInstitute();
         }
     }
 
