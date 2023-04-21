@@ -25,6 +25,9 @@ const SetInstituteMutation = {
             {
                 $push: {
                     students: args.username
+                },
+                $inc: {
+                    student_count : 1
                 }
             },
             {new: true}
