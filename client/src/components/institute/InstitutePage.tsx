@@ -32,7 +32,7 @@ const InstitutePage = () => {
     }
   return (!error && !loading && 
     <div className="flex flex-col justify-center items-center px-4 py-2 w-full h-full bg-lc-gray-2 text-white">
-      <div className='flex flex-col justify-center items-center w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
+      <div className='flex flex-col items-center w-full py-4 px-8 bg-lc-gray-1 rounded-lg'>
             <InstituteDetail />
         </div>
             <BatchmatesList />

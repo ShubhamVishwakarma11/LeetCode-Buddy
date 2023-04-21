@@ -16,7 +16,6 @@ export const GET_BATCHMATES_LIST = gql`
     query getBatchmates($username: String!) {
         batchmates(username: $username) {
             username
-            githubUrl
             acSubmissionNum {
               difficulty
               count
