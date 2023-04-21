@@ -12,6 +12,7 @@
 }
 
 body {
+  @apply bg-lc-gray-2;
   width: 500px;
-  max-height: 600px;
+  height: 600px;
 }

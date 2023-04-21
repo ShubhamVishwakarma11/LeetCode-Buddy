@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react'
 import { MdOutlineSchool } from 'react-icons/md'
 import {SlLocationPin} from 'react-icons/sl'
 import {FaUserGraduate} from 'react-icons/fa'
+import {HiBuildingLibrary} from 'react-icons/hi2'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_INSTITUTES_LIST } from '@/query/InstituteQuery'
 import { SET_INSTITUTE } from '@/mutations/instituteMutation'
@@ -85,19 +85,20 @@ const InstituteForm = () => {
                             })
                             .slice(0,10)
                             .map( (institute:any) => 
-                                <div className='bg-lc-gray-1 p-2 rounded flex justify-between items-center' key={institute.id} onClick={() => handleClick(institute)}>
-                                    <div className=''>
-                                        <p>{institute.name}</p>
+                                <div className='bg-lc-gray-1 p-2 rounded flex justify-between gap-2 items-center' key={institute.id} onClick={() => handleClick(institute)}>
+                                    <div className="flex justify-start gap-2 items-center">
+                                        <HiBuildingLibrary className='text-7xl p-2 text-lc-text-dark'/>
+                                        <div className="flex flex-col gap-1 items-start justify-center w-full">
+                                            <p className='text-lg w-[16rem]'>{institute.name}</p>
+                                            <div className="flex justify-start gap-1 items-center">
+                                                <SlLocationPin className='text-xs'/>
+                                                <p className='text-xs'>Location: {institute.city}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col justify-between items-start text-lc-text-dark">
-                                        <div className="flex justify-start items-center gap-2">
-                                            <SlLocationPin/>
-                                            <p>{institute.city}</p>
-                                        </div>
-                                        <div className="flex justify-start items-center gap-2">
-                                            <FaUserGraduate/>
-                                            <p>{institute.student_count}</p>
-                                        </div>
+                                    <div className="flex justify-center items-center gap-1">
+                                        <FaUserGraduate className='text-md text-lc-text-dark'/>
+                                        <p className='text-lg text-lc-text-dark' >{institute.student_count}</p>
                                     </div>
                                 </div> 
                             )}

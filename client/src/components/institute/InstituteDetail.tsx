@@ -39,7 +39,7 @@ const InstituteDetail = () => {
                 <FaUserGraduate className='text-sm text-lc-text-dark'/>
                 <p className='text-sm text-lc-text-dark'>Student Count: </p>
               </div>
-              <p className='text-sm'>{data.user.institute.student_count}K</p>
+              <p className='text-sm'>{data.user.institute.student_count}</p>
             </div>
           </div>
         </div>
