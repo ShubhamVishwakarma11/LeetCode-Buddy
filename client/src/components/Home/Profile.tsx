@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import { calcDate } from '@/utility/calcDate'
 import { ADD_USER } from '@/mutations/userMutation'
 import Onboarding from './Onboarding'
+import { MoonLoader } from 'react-spinners'
 
 const Profile = () => { 
     const {url} = useUrlContext();
@@ -44,7 +45,7 @@ const Profile = () => {
 
     if (!user) return <p>Please Login to your LeetCode Account</p>
 
-    else if (loading) return <p>Loading ...</p>
+    else if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
 
     else if (error && error.message===`Cannot read properties of null (reading 'id')`) {
         // const handleClick = () => {

@@ -8,6 +8,7 @@ import { GET_INSTITUTES_LIST } from '@/query/InstituteQuery'
 import { SET_INSTITUTE } from '@/mutations/instituteMutation'
 import { GET_USER_DETAIL } from '@/query/UserQuery'
 import { useUserContext } from '@/hooks/useUserContext'
+import { MoonLoader } from 'react-spinners'
 
 
 type DataType = {
@@ -46,7 +47,7 @@ const InstituteForm = () => {
         }
     }
 
-    if (loading) return <p>Loading ...</p>
+    if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
     if (error) return <p>{error.message}</p>
 
   return (

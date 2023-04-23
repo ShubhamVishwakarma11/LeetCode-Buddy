@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_DETAIL } from '@/query/UserQuery';
 import InstituteDetail from './InstituteDetail';
 import BatchmatesList from './BatchmatesList';
+import { MoonLoader } from 'react-spinners';
 
 
 const InstitutePage = () => {
@@ -16,7 +17,7 @@ const InstitutePage = () => {
     });
 
 
-    if (loading) return <p>Loading ...</p>
+    if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
     if (error) return <p>{error.message}</p>
 
     if (!data.user.institute) {

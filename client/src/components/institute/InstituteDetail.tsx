@@ -6,13 +6,14 @@ import {HiBuildingLibrary} from 'react-icons/hi2'
 import {SlLocationPin} from 'react-icons/sl'
 import {FaUserGraduate} from 'react-icons/fa'
 import {BsInfoCircle} from 'react-icons/bs'
+import { MoonLoader } from 'react-spinners'
 
 const InstituteDetail = () => {
     const {user} = useUserContext();
     const {loading, error, data} = useQuery(GET_USER_DETAIL, {
         variables: {username: user}
     })
-    if (loading) return <p>Loading ... </p>
+    if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
     if (error) return <p>{error.message}</p>
   return (
     <div className='w-[25rem]'>

@@ -6,6 +6,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import {TiUserAdd} from 'react-icons/ti'
 import React, { useState } from 'react'
 import { ADD_FRIEND } from '@/mutations/friendMutation';
+import { MoonLoader } from 'react-spinners';
 import { FriendItemProps } from '@/types/friend';
 
 
@@ -29,7 +30,7 @@ const FriendList = () => {
   
     if (!user) return <p>Please Login to your LeetCode Account</p>
 
-    if (loading) return <p>Loading ...</p>
+    if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
     if (error) return <p>{error.message}</p>
 
 

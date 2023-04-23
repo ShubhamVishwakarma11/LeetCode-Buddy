@@ -3,6 +3,7 @@ import { GET_BATCHMATES_LIST } from '@/query/InstituteQuery'
 import { useQuery } from '@apollo/client'
 import React from 'react'
 import FriendItem from '../friends/FriendItem'
+import { MoonLoader } from 'react-spinners'
 
 const BatchmatesList = () => {
     const {user} = useUserContext();
@@ -11,7 +12,7 @@ const BatchmatesList = () => {
         variables: {username: user}
     })
     
-    if (loading) return <p>Loading ... </p>
+    if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
     if (error) return <p>{error.message}</p>
 
   return (!loading && !error && 
