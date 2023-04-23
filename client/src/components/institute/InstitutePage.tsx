@@ -17,7 +17,9 @@ const InstitutePage = () => {
     });
 
 
-    if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
+    if (loading) return <div className="flex justify-center w-full">
+            <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
+        </div>
     if (error) return <p>{error.message}</p>
 
     if (!data.user.institute) {
