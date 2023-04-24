@@ -8,12 +8,12 @@ import React from 'react'
 const FriendItem = ({username, realName, ranking, acSubmissionNum, allQuestionsCount, userAvatar}:FriendItemProps) => {
   return (
     <div className='flex gap-2 bg-lc-gray-1 rounded-lg w-full justify-between items-center p-4'>
-        <div className="flex gap-2 items-center">
-        <Image src={userAvatar} alt="avatar" width={50} height={50}/>
-        <div className="flex flex-col">
-            <p className='text-lg' > {username}</p>
-            <p className='text-lc-text-dark text-sm'>{realName} </p>
-        </div>
+        <div className="flex gap-2 items-center hover:cursor-pointer" onClick={() => chrome.tabs.create({'url': `https://leetcode.com/${username}`})}>
+            <Image src={userAvatar} alt="avatar" width={50} height={50}/>
+            <div className="flex flex-col">
+                <p className='text-lg' > {username}</p>
+                <p className='text-lc-text-dark text-sm'>{realName} </p>
+            </div>
         </div>
         <div className="">
             {/* circular progress bar  */}

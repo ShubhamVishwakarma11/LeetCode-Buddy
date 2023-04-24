@@ -15,7 +15,7 @@ const AddInstituteMutation = {
             name: args.name,
             city: args.city,
             students: [`${args.username}`],
-            student_count: 0
+            student_count: 1
         })
         const findUser = await User.findOne({username: args.username});
         const user = await User.findByIdAndUpdate(
