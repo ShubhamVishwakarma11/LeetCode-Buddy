@@ -27,7 +27,7 @@ const InstituteDetail = () => {
             <p className='text-xs text-lc-text-dark'>About Institute</p>
           </div>
           <p className='text-xl mt-2'>{data.user.institute.name}</p>
-          <div className="flex justify-between w-full mt-1">
+          <div className="flex justify-between w-full mt-1 gap-6">
             <div className="flex justify-center gap-1 items-center">
               <div className="flex justify-center gap-1 items-center">
                 <SlLocationPin className='text-sm text-lc-text-dark'/>

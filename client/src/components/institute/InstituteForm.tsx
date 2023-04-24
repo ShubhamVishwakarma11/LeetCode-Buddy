@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { MdOutlineSchool } from 'react-icons/md'
 import {SlLocationPin} from 'react-icons/sl'
-import {FaUserGraduate} from 'react-icons/fa'
+import {BsBuildingFillAdd} from 'react-icons/bs'
 import {HiBuildingLibrary} from 'react-icons/hi2'
+import { FaUserGraduate } from 'react-icons/fa'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_INSTITUTES_LIST } from '@/query/InstituteQuery'
 import { SET_INSTITUTE } from '@/mutations/instituteMutation'
 import { GET_USER_DETAIL } from '@/query/UserQuery'
 import { useUserContext } from '@/hooks/useUserContext'
 import { MoonLoader } from 'react-spinners'
+import Link from 'next/link'
 
 
 type DataType = {
@@ -72,9 +74,18 @@ const InstituteForm = () => {
                         </div>
                         <div className="flex flex-col gap-1 mt-2 rounded">
                             {value && 
-                                <div className='bg-lc-gray-1 p-2 rounded flex justify-between items-center'>
-                                    <p>Can&apos;t find your institute? </p>
-                                </div>
+                                 <div className='bg-lc-gray-1 p-2 rounded flex justify-between gap-2 items-center'>
+                                    <div className="flex justify-start gap-2 items-center">
+                                        <HiBuildingLibrary className='text-7xl p-2 text-lc-text-dark'/>
+                                        <div className="flex flex-col gap-1 items-start justify-center w-full">
+                                            <p className='text-lg w-[16rem]'>Can&apos;t find your College?</p>
+                                        </div>
+                                    </div>
+                                    <Link href="/newInstitute" className="flex justify-center items-center gap-1 bg-lc-gray-3 p-2 rounded hover:bg-lc-gray-2 transition-all -translate-x-9">
+                                        <BsBuildingFillAdd className='text-md text-lc-text-dark'/>
+                                        <p className='text-lg text-lc-text-dark'> Add</p>
+                                    </Link>
+                                </div> 
                             }
                             {data.institutes
                             .filter( (institute:any) => {
