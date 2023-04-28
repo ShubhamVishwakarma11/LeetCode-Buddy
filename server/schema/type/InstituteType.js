@@ -17,7 +17,8 @@ const InstituteType = new GraphQLObjectType({
         name: {type: GraphQLString},
         city: {type: GraphQLString},
         students: {type: new GraphQLList(GraphQLString)},
-        student_count: {type: GraphQLInt}
+        student_count: {type: GraphQLInt},
+        logo: {type: GraphQLString}
     })
 })
 

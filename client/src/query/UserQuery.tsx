@@ -11,6 +11,7 @@ export const GET_USER_DETAIL = gql`
               city
               student_count
               students
+              logo
             }
             friends
             githubUrl

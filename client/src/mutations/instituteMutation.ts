@@ -15,13 +15,14 @@ export const SET_INSTITUTE = gql`
 `
 
 export const ADD_INSTITUTE = gql`
-    mutation addInstitute($username: String!,$name: String!, $city: String!) {
-        addInstitute(username:$username, name:$name, city:$city) {
+    mutation addInstitute($username: String!,$name: String!, $city: String!, $logo: String) {
+        addInstitute(username:$username, name:$name, city:$city, logo: $logo) {
             id
             name
             city
             students
             student_count
+            logo
           }
     }
 `;

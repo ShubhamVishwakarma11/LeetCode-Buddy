@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import {BsInfoCircle} from 'react-icons/bs'
 import {IoIosArrowDropdown} from 'react-icons/io'
+import InstituteLogoForm from './InstituteLogoForm'
 
 interface formDataType {
     name: string
@@ -34,9 +35,10 @@ const NewInstituteForm = () => {
     const [formData, setFormData] = useState<formDataType>(initValues);
     const [showDropDown, setShowDropDown] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [logoUrl, setLogoUrl] = useState("");
 
     const [addInstitute] = useMutation(ADD_INSTITUTE, {
-        variables: {username: user, name: formData.name, city: formData.city},
+        variables: {username: user, name: formData.name, city: formData.city, logo: logoUrl},
         refetchQueries: [{query: GET_USER_DETAIL, variables: {username: user}}],
         onCompleted: () => {
             router.push('institute');
@@ -65,7 +67,12 @@ const NewInstituteForm = () => {
         setLoading(true);
         const data:any = await addInstitute();
         console.log(data);
+        console.log(logoUrl);
         // router.push('/institute');
+    }
+
+    const updateLogoUrl = (url: string) => {
+        setLogoUrl(url);
     }
 
 
@@ -109,7 +116,7 @@ const NewInstituteForm = () => {
                                 )}/>
                             </button>
                         </div>
-                        <div className="flex flex-col gap-1 mt-2 rounded">
+                        <div className="flex flex-col gap-1 mt-2 rounded absolute">
                             {cityData
                             .filter( (item:any) => {
                                 const searchTerm = formData.city.toLowerCase();
@@ -126,6 +133,9 @@ const NewInstituteForm = () => {
                             )}
                             
                         </div>
+
+                        <InstituteLogoForm updateLogoUrl={updateLogoUrl}/>
+
                         <button 
                             type='submit' 
                             className='w-full bg-lc-gray-3 hover:bg-lc-gray-1 h-12 rounded-lg mt-6'

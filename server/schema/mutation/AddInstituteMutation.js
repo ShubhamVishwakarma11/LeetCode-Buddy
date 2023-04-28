@@ -8,14 +8,16 @@ const AddInstituteMutation = {
     args: {
         username: {type: new GraphQLNonNull(GraphQLString)},
         name:{type: new GraphQLNonNull(GraphQLString)} ,
-        city: { type: new GraphQLNonNull(GraphQLString)}
+        city: { type: new GraphQLNonNull(GraphQLString)},
+        logo: {type: GraphQLString}
     },
     resolve: async (parent, args) => {
         const institute = await Institute.create({
             name: args.name,
             city: args.city,
             students: [`${args.username}`],
-            student_count: 1
+            student_count: 1,
+            logo: args.logo
         })
         const findUser = await User.findOne({username: args.username});
         const user = await User.findByIdAndUpdate(

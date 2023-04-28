@@ -8,6 +8,7 @@ export const GET_INSTITUTES_LIST = gql`
             city
             student_count
             students
+            logo
           }
     }
 `;

@@ -9,6 +9,9 @@ const InstituteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    logo: {
+        type: String
+    },
     students: [{
         type: String
     }],

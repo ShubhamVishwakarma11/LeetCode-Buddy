@@ -7,6 +7,7 @@ import {SlLocationPin} from 'react-icons/sl'
 import {FaUserGraduate} from 'react-icons/fa'
 import {BsInfoCircle} from 'react-icons/bs'
 import { MoonLoader } from 'react-spinners'
+import Image from 'next/image'
 
 const InstituteDetail = () => {
     const {user} = useUserContext();
@@ -19,7 +20,12 @@ const InstituteDetail = () => {
     <div className='w-[25rem]'>
       <div className="flex gap-4 items-center ">
         <div className="">
-          <HiBuildingLibrary className='text-lc-text-dark text-6xl'/>
+          {data.user.institute.logo ? 
+            <Image src={data.user.institute.logo} alt="logo" width={110} height={110}/>
+            :
+            <HiBuildingLibrary className='text-lc-text-dark text-6xl'/>
+          }
+          
         </div>
         <div className="flex flex-col items-start ">
           <div className="flex justify-center items-center gap-1">
