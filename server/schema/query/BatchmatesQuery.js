@@ -26,6 +26,12 @@ const query = `query getUserProfile($username: String!) {
             }
         }
     }
+
+    userContestRanking(username: $username) {
+        attendedContestsCount
+        rating
+        topPercentage
+    }
 }`
 
 const BatchmatesQuery = {
@@ -60,7 +66,8 @@ const BatchmatesQuery = {
                 githubUrl: apiUser.matchedUser.githubUrl,
                 allQuestionsCount: apiUser.allQuestionsCount,
                 acSubmissionNum: apiUser.matchedUser.submitStats.acSubmissionNum,
-                profile: apiUser.matchedUser.profile
+                profile: apiUser.matchedUser.profile,
+                userContestRanking: apiUser.userContestRanking
             }
             console.log(user)
             return user

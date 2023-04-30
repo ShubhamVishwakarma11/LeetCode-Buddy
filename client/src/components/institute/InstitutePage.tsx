@@ -17,7 +17,7 @@ const InstitutePage = () => {
     });
 
 
-    if (loading) return <div className="flex justify-center w-full">
+    if (loading) return <div className="flex mt-2 justify-center w-full">
             <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
         </div>
     if (error) return <p>{error.message}</p>

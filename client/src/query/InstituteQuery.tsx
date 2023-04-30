@@ -25,6 +25,11 @@ export const GET_BATCHMATES_LIST = gql`
               difficulty
               count
             }
+            userContestRanking {
+              attendedContestsCount
+              rating
+              topPercentage
+            }
             profile {
               realName
               ranking

@@ -21,6 +21,5 @@ export const UserContextProvider = ({children}: UserContextProviderProps) => {
             {children}
         </UserContext.Provider>
     )
-
 }
 

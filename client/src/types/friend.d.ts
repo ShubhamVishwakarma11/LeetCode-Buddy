@@ -3,6 +3,7 @@ export type FriendItemProps = {
     username: string,
     realName: string, 
     ranking: number,
+    rating: number,
     acSubmissionNum: {
         difficulty: string,
         count: number

@@ -10,6 +10,7 @@ import { calcDate } from '@/utility/calcDate'
 import { ADD_USER } from '@/mutations/userMutation'
 import Onboarding from './Onboarding'
 import { MoonLoader } from 'react-spinners'
+import {BsInfoCircle} from 'react-icons/bs'
 
 const Profile = () => { 
     const {url} = useUrlContext();
@@ -43,7 +44,15 @@ const Profile = () => {
 
     
 
-    if (!user) return <p>Please Login to your LeetCode Account</p>
+    if (!user) return (
+        <div className="flex flex-col justify-between items-center gap-6">
+            <p className='text-lc-text-light text-lg'>Please Login to your LeetCode Account</p>
+            <div className="flex justify-between p-2 items-center gap-4 w-[85%] rounded bg-lc-gray-1">
+                <BsInfoCircle className='text-[8rem] m-2 text-lc-text-dark'/>
+                <p className='text-lc-text-dark text-sm p-2'>If you have logged into your LeetCode Account and still getting this page, then visit the LeetCode Homepage (leetcode.com) and reopen your LeetCode Profile and then open the extension</p>
+            </div>
+        </div>
+    )
 
     else if (loading) return <MoonLoader color="#ffa116" speedMultiplier={0.8}/>
 
@@ -85,18 +94,20 @@ const Profile = () => {
                             Rank: {data.user.profile.ranking} 
                             {/* 6969 */}
                         </p>
-                        <p>{url}</p>
+                        {/* <p>{url}</p> */}
                     </div>
                 </div>
             </div>
 
-            <div className='w-full flex items-center justify-center gap-4 p-4 bg-lc-gray-1 rounded-lg'>
+            {/* Daily Challenge Streak */}
+            
+            {/* <div className='w-full flex items-center justify-center gap-4 p-4 bg-lc-gray-1 rounded-lg'>
                 <p className='text-lc-text-dark text-md'>Daily Challenge Streak</p>
                 <div className="flex text-xl">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="1em" height="1em" fill='#ffa116' className="h-[24px] w-[24px] group-hover:text-gray-7 dark:group-hover:text-dark-gray-7 text-gray-6 dark:text-dark-gray-6"><path fillRule="evenodd" d="M7.19 1.564a.75.75 0 01.729.069c2.137 1.475 3.373 3.558 3.981 5.002l.641-.663a.75.75 0 011.17.115c1.633 2.536 1.659 5.537.391 7.725-1.322 2.282-3.915 2.688-5.119 2.688-1.177 0-3.679-.203-5.12-2.688-.623-1.076-.951-2.29-.842-3.528.109-1.245.656-2.463 1.697-3.54.646-.67 1.129-1.592 1.468-2.492.337-.895.51-1.709.564-2.105a.75.75 0 01.44-.583zm.784 2.023c-.1.368-.226.773-.385 1.193-.375.997-.947 2.13-1.792 3.005-.821.851-1.205 1.754-1.282 2.63-.078.884.153 1.792.647 2.645C6.176 14.81 7.925 15 8.983 15c1.03 0 2.909-.366 3.822-1.94.839-1.449.97-3.446.11-5.315l-.785.812a.75.75 0 01-1.268-.345c-.192-.794-1.04-2.948-2.888-4.625z" clipRule="evenodd"></path></svg>
                     <p className='text-lc-orange'>0</p>
                 </div>
-            </div>
+            </div> */}
 
 
             <div className='w-full p-4 bg-lc-gray-1 rounded-lg'>

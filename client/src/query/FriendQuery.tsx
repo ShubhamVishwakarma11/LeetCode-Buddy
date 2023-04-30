@@ -13,6 +13,11 @@ export const GET_FRIENDS_LIST = gql`
               difficulty
               count
             }
+            userContestRanking {
+              attendedContestsCount
+              rating
+              topPercentage
+            }
             profile {
               realName
               ranking

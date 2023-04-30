@@ -8,11 +8,13 @@ import React, { useState } from 'react'
 import { ADD_FRIEND } from '@/mutations/friendMutation';
 import { MoonLoader } from 'react-spinners';
 import { FriendItemProps } from '@/types/friend';
+import { UserType } from '@/types/user';
 
 
 
 const FriendList = () => {
     const [friendUsername, setFriendUsername] = useState('');
+    const [sortBy, setSortBy] = useState("");
 
     const {url} = useUrlContext();
     const {user} = useUserContext();
@@ -41,9 +43,16 @@ const FriendList = () => {
         console.log(friendUsername);
     }
 
-    // const sortByQuestionCount = (a:any,b:any) => {
-    //     return a.profile.ranking - b.profile.ranking
-    // }
+    const sortList = (a:UserType, b:UserType) => {
+        if (sortBy == "1") 
+            return b.acSubmissionNum[0].count - a.acSubmissionNum[0].count;
+        else if (sortBy == "2") 
+            return b.userContestRanking.rating - a.userContestRanking.rating;
+        else if (sortBy == "3") 
+            return a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1;
+        else return 0;  
+    }
+
 
   return (
     !loading && !error && 
@@ -74,17 +83,22 @@ const FriendList = () => {
                     </form>
                     <select 
                         className="w-[7rem] p-3 border-lc-gray-2 bg-lc-gray-3 rounded-lg" 
+                        value={sortBy}
+                        onChange={(e) => {setSortBy(e.target.value)}}
                         name="" 
                         id=""
                     >  
                         <option value="0">Sort by</option> 
                         <option value="1">Questions</option>
-                        <option value="2">Ranking</option>
+                        <option value="2">Contest Rating</option>
                         <option value="3">Alphabetically</option>
                     </select>
             </div>
             <div className="flex flex-col gap-2 w-full mt-4">
-                {data.friends.map( (friend:any) => {
+                {
+                [].concat(data.friends)
+                .sort(sortList)
+                .map( (friend:any) => {
                     return <FriendItem 
                         key={friend.username}
                         username= {friend.username}
@@ -93,6 +107,7 @@ const FriendList = () => {
                         acSubmissionNum = {friend.acSubmissionNum}
                         allQuestionsCount={friend.allQuestionsCount}
                         userAvatar={friend.profile.userAvatar}
+                        rating={friend.userContestRanking.rating}
                     />
                 } )}
             </div>
