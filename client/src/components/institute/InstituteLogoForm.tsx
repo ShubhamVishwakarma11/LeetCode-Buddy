@@ -27,7 +27,7 @@ const InstituteLogoForm = ({updateLogoUrl}: InstituteLogoFormProps) => {
         if (!file) return;
         const formData = new FormData();
         formData.append("file", file as any);
-        formData.append("upload_preset", "bmqlccg5");
+        formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
 
         Axios.post("https://api.cloudinary.com/v1_1/dk4vunizw/image/upload", formData)
         .then((res) => {

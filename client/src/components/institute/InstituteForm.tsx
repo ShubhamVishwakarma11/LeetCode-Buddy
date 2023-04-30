@@ -11,6 +11,7 @@ import { GET_USER_DETAIL } from '@/query/UserQuery'
 import { useUserContext } from '@/hooks/useUserContext'
 import { MoonLoader } from 'react-spinners'
 import Link from 'next/link'
+import Image from 'next/image'
 
 
 type DataType = {
@@ -99,8 +100,15 @@ const InstituteForm = () => {
                             .map( (institute:any) => 
                                 <div className='bg-lc-gray-1 p-2 rounded flex justify-between gap-2 items-center' key={institute.id} onClick={() => handleClick(institute)}>
                                     <div className="flex justify-start gap-2 items-center">
-                                        <HiBuildingLibrary className='text-7xl p-2 text-lc-text-dark'/>
-                                        <div className="flex flex-col gap-1 items-start justify-center w-full">
+                                    <div className="">
+                                    {institute.logo ? 
+                                        <Image src={institute.logo} alt="logo" width={110} height={110}/>
+                                        :
+                                        <HiBuildingLibrary className='text-lc-text-dark text-6xl'/>
+                                    }
+                                    
+                                </div>
+                                <div className="flex flex-col gap-1 items-start justify-center w-full">
                                             <p className='text-lg w-[16rem]'>{institute.name}</p>
                                             <div className="flex justify-start gap-1 items-center">
                                                 <SlLocationPin className='text-xs'/>
